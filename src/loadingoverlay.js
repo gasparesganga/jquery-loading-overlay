@@ -63,7 +63,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     "display"           : "flex",
                     "flex-direction"    : "column",
                     "align-items"       : "center",
-                    "justify-content"   : "center"
+                    "justify-content"   : "center",
+                    "z-index" : "9999"
                 }
             });
             if (settings.image) overlay.css({
