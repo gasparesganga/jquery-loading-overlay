@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 1.1
+    Version         : 1.2
     License         : MIT
     Documentation   : http://gasparesganga.com/labs/jquery-loading-overlay
 ****************************************************************************************************/
@@ -9,6 +9,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     var _defaults = {
         color           : "rgba(255, 255, 255, 0.8)",
         custom          : "",
+        fade            : true,
         fontawesome     : "",
         image           : "loading.gif",
         maxSize         : "100px",
@@ -103,7 +104,15 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 }, settings.resizeInterval);
                 container.data("LoadingOverlayResizeIntervalId", resizeIntervalId);
             }
-            overlay.appendTo(container);
+            if (!settings.fade) {
+                settings.fade = [0, 0];
+            } else if (settings.fade === true) {
+                settings.fade = [400, 200];
+            } else if (typeof settings.fade == "string" || typeof settings.fade == "number") {
+                settings.fade = [settings.fade, settings.fade];
+            }
+            container.data("LoadingOverlayFadeOutDuration", settings.fade[1]);
+            overlay.hide().appendTo(container).fadeIn(settings.fade[0]);
         }
         count++;
         container.data("LoadingOverlayCount", count);
@@ -117,8 +126,10 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         if (force || count <= 0) {
             var resizeIntervalId = container.data("LoadingOverlayResizeIntervalId");
             if (resizeIntervalId) clearInterval(resizeIntervalId);
-            container.removeData("LoadingOverlayCount").removeData("LoadingOverlayResizeIntervalId");
-            container.children(".loadingoverlay").remove();
+            container.children(".loadingoverlay").fadeOut(container.data("LoadingOverlayFadeOutDuration"), function(){
+                $(this).remove()
+            });
+            container.removeData(["LoadingOverlayCount", "LoadingOverlayFadeOutDuration", "LoadingOverlayResizeIntervalId"]);
         } else {
             container.data("LoadingOverlayCount", count);
         }

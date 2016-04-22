@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>LoadingOverlay Extras - Progress - Test</title>
+        <style>
+            #progress_test {
+                display         : block;
+                margin          : 20px;
+                font            : 12pt/1.2 sans-serif;
+                font-weight     : bold;
+                padding         : 6px;
+            }
+            .container {
+                display     : inline-block;
+                margin-left : 20px;
+                width       : 500px;
+                height      : 500px;
+                border      : 1px solid #008800;
+                font        : 14pt/1.2 sans-serif;
+                text-align  : center;
+                padding     : 10px;
+                color       : #303030;
+                background  : #ffdd88;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+        <script src="../../src/loadingoverlay.min.js"></script>
+        <script src="loadingoverlay_progress.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#progress_test").on("click", function Example1(event){
+                   /***** Element 1 *****/
+                        // Initialize Progress and show LoadingOverlay
+                        var progress1 = new LoadingOverlayProgress();
+                        $("#element1").LoadingOverlay("show", {
+                            custom  : progress1.Init()
+                        });
+                        // Simulate some action:
+                        var count1  = 0;
+                        var iid1	= setInterval(function(){
+                            if (count1 >= 100) {
+                                clearInterval(iid1);
+                                delete progress1;
+                                $("#element1").LoadingOverlay("hide");
+                                return;
+                            }
+                            count1++;
+                            progress1.Update(count1);
+                        }, 100);
+                    /*********************/
+                    
+                    
+                    /***** Element 2 *****/
+                        // Initialize Progress and show LoadingOverlay, you can customize it using an object with "bar" and "text" properties:
+                        var progress2 = new LoadingOverlayProgress({
+                            bar     : {
+                                "background"    : "#dd0000",
+                                "top"           : "50px",
+                                "height"        : "30px",
+                                "border-radius" : "15px"
+                            },
+                            text    : {
+                                "color"         : "#aa0000",
+                                "font-family"   : "monospace",
+                                "top"           : "25px"
+                            }
+                        });
+                        $("#element2").LoadingOverlay("show", {
+                            custom  : progress2.Init()
+                        });
+                        // Simulate some other action:
+                        var count2  = 0;
+                        var iid2    = setInterval(function(){
+                            if (count2 >= 100) {
+                                clearInterval(iid2);
+                                delete progress2;
+                                $("#element2").LoadingOverlay("hide");
+                                return;
+                            }
+                            count2++;
+                            progress2.Update(count2);
+                        }, 50);
+                    /*********************/
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <button id="progress_test">Extras "Progress" Test</button>
+        <div class="container" id="element1">Element 1</div>
+        <div class="container" id="element2">Element 2</div>
+    </body>
+</html>
