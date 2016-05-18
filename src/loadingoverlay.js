@@ -15,7 +15,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         maxSize         : "100px",
         minSize         : "20px",
         resizeInterval  : 0,
-        size            : "50%"
+        size            : "50%",
+        zIndex          : 1
     };
 
     $.LoadingOverlaySetup = function(settings){
@@ -64,7 +65,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     "display"           : "flex",
                     "flex-direction"    : "column",
                     "align-items"       : "center",
-                    "justify-content"   : "center"
+                    "justify-content"   : "center",
+                    "z-index"           : settings.zIndex
                 }
             });
             if (settings.image) overlay.css({
