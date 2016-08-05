@@ -1,11 +1,12 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 1.4.0
+    Version         : 1.4.1
     License         : MIT
     Documentation   : http://gasparesganga.com/labs/jquery-loading-overlay/
 ****************************************************************************************************/
 (function($, undefined){
+    // Default Settings
     var _defaults = {
         color           : "rgba(255, 255, 255, 0.8)",
         custom          : "",
@@ -15,15 +16,15 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         imagePosition   : "center center",
         maxSize         : "100px",
         minSize         : "20px",
-        resizeInterval  : 0,
+        resizeInterval  : 50,
         size            : "50%",
         zIndex          : undefined
     };
-
+    
     $.LoadingOverlaySetup = function(settings){
         $.extend(true, _defaults, settings);
     };
-
+    
     $.LoadingOverlay = function(action, options){
         switch (action.toLowerCase()) {
             case "show":
@@ -36,7 +37,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 break;
         }
     };
-
+    
     $.fn.LoadingOverlay = function(action, options){
         switch (action.toLowerCase()) {
             case "show":
@@ -51,12 +52,12 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 });
         }
     };
-
-
+    
+    
     function _Show(container, settings){
         container = $(container);
-        var fixed = container.is("body");
-        var count = container.data("LoadingOverlayCount");
+        var wholePage   = container.is("body");
+        var count       = container.data("LoadingOverlayCount");
         if (count === undefined) count = 0;
         if (count == 0) {
             var overlay = $("<div>", {
@@ -71,15 +72,15 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             });
             if (settings.zIndex !== undefined) overlay.css("z-index", settings.zIndex);
             if (settings.image) overlay.css({
-                "background-image"      : "url("+settings.image+")",
+                "background-image"      : "url(" + settings.image + ")",
                 "background-position"   : settings.imagePosition,
                 "background-repeat"     : "no-repeat"
             });
             if (settings.fontawesome) $("<div>", {
-                class   : "loadingoverlay_fontawesome "+settings.fontawesome
+                class   : "loadingoverlay_fontawesome " + settings.fontawesome
             }).appendTo(overlay);
             if (settings.custom) $(settings.custom).appendTo(overlay);
-            if (fixed) {
+            if (wholePage) {
                 overlay.css({
                     "position"  : "fixed",
                     "top"       : 0,
@@ -88,22 +89,12 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     "height"    : "100%"
                 });
             } else {
-                overlay.css({
-                    "position"  : "absolute",
-                    "top"       : 0,
-                    "left"      : 0
-                });
-                if (container.css("position") == "static") {
-                    overlay.css({
-                        "top"   : container.position().top  + parseInt(container.css("margin-top"))  + parseInt(container.css("border-top-width")),
-                        "left"  : container.position().left + parseInt(container.css("margin-left")) + parseInt(container.css("border-left-width"))
-                    });
-                }
+                overlay.css("position", (container.css("position") == "fixed") ? "fixed" : "absolute");
             }
-            _Resize(container, overlay, settings, fixed);
+            _Resize(container, overlay, settings, wholePage);
             if (settings.resizeInterval > 0) {
                 var resizeIntervalId = setInterval(function(){
-                    _Resize(container, overlay, settings, fixed);
+                    _Resize(container, overlay, settings, wholePage);
                 }, settings.resizeInterval);
                 container.data("LoadingOverlayResizeIntervalId", resizeIntervalId);
             }
@@ -114,8 +105,14 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             } else if (typeof settings.fade == "string" || typeof settings.fade == "number") {
                 settings.fade = [settings.fade, settings.fade];
             }
-            container.data("LoadingOverlayFadeOutDuration", settings.fade[1]);
-            overlay.hide().appendTo(container).fadeIn(settings.fade[0]);
+            container.data({
+                "LoadingOverlay"                : overlay,
+                "LoadingOverlayFadeOutDuration" : settings.fade[1]
+            });
+            overlay
+                .hide()
+                .appendTo("body")
+                .fadeIn(settings.fade[0]);
         }
         count++;
         container.data("LoadingOverlayCount", count);
@@ -129,29 +126,34 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         if (force || count <= 0) {
             var resizeIntervalId = container.data("LoadingOverlayResizeIntervalId");
             if (resizeIntervalId) clearInterval(resizeIntervalId);
-            container.children(".loadingoverlay").fadeOut(container.data("LoadingOverlayFadeOutDuration"), function(){
+            container.data("LoadingOverlay").fadeOut(container.data("LoadingOverlayFadeOutDuration"), function(){
                 $(this).remove()
             });
-            container.removeData(["LoadingOverlayCount", "LoadingOverlayFadeOutDuration", "LoadingOverlayResizeIntervalId"]);
+            container.removeData(["LoadingOverlay", "LoadingOverlayCount", "LoadingOverlayFadeOutDuration", "LoadingOverlayResizeIntervalId"]);
         } else {
             container.data("LoadingOverlayCount", count);
         }
     }
-
-    function _Resize(container, overlay, settings, fixed){
-        if (!fixed) overlay.css({
-            "width"     : container.innerWidth(),
-            "height"    : container.innerHeight()
-        });
+    
+    function _Resize(container, overlay, settings, wholePage){
+        if (!wholePage) {
+            var x = (container.css("position") == "fixed") ? container.position() : container.offset();
+            overlay.css({
+                top     : x.top + parseInt(container.css("border-top-width"), 10),
+                left    : x.left + parseInt(container.css("border-left-width"), 10),
+                width   : container.innerWidth(),
+                height  : container.innerHeight()
+            });
+        }
+        var c    = wholePage ? $(window) : container;
         var size = "auto";
         if (settings.size && settings.size != "auto") {
-            var c = fixed ? $(window) : container;
             size = Math.min(c.innerWidth(), c.innerHeight()) * parseFloat(settings.size) / 100;
-            if (settings.maxSize && size > parseInt(settings.maxSize)) size = parseInt(settings.maxSize)+"px";
-            if (settings.minSize && size < parseInt(settings.minSize)) size = parseInt(settings.minSize)+"px";
+            if (settings.maxSize && size > parseInt(settings.maxSize, 10)) size = parseInt(settings.maxSize, 10) + "px";
+            if (settings.minSize && size < parseInt(settings.minSize, 10)) size = parseInt(settings.minSize, 10) + "px";
         }
         overlay.css("background-size", size);
         overlay.children(".loadingoverlay_fontawesome").css("font-size", size);
     }
-
+    
 }(jQuery));
