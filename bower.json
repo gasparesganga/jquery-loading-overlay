@@ -1,0 +1,18 @@
+{
+  "name": "jquery-loading-overlay-gasparesganga",
+  "description": "Flexible loading overlay jQuery Plugin",
+  "homepage": "http://gasparesganga.com/labs/jquery-loading-overlay/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gasparesganga/jquery-loading-overlay.git"
+  },
+  "authors": ["Gaspare Sganga <contact@gasparesganga.com>"],
+  "main": "src/loadingoverlay.js",
+  "moduleType": ["globals"],
+  "keywords": ["jquery", "loading", "overlay"],
+  "dependencies": {
+    "jquery": "~1.0.0"
+  },
+  "ignore": ["**/.*", "node_modules", "bower_components", "package.json", "test", "tests"],
+  "license": "MIT"
+}
