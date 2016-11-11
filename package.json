@@ -5,10 +5,6 @@
     "homepage": "http://gasparesganga.com/labs/jquery-loading-overlay/",
     "author": "Gaspare Sganga <contact@gasparesganga.com> (http://gasparesganga.com)",
     "license": "MIT",
-    "files": [
-        "src/loadingoverlay.js",
-        "src/extras/loadingoverlay_progress/loadingoverlay_progress.js"
-    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/gasparesganga/jquery-loading-overlay.git"
