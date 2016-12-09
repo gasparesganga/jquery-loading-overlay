@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 1.5.1
+    Version         : 1.5.2
     License         : MIT
     Documentation   : http://gasparesganga.com/labs/jquery-loading-overlay/
 ****************************************************************************************************/
@@ -18,7 +18,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         minSize         : "20px",
         resizeInterval  : 50,
         size            : "50%",
-        zIndex          : undefined
+        zIndex          : 9999
     };
     
     $.LoadingOverlaySetup = function(settings){

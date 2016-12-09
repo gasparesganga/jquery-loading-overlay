@@ -5,15 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.5.2 - 2016-12-09
+### Changed
+- Option `zIndex` defaults to 9999
+
+
+
 ## v1.5.1 - 2016-11-11
 ### Added
 - package.json fix
+
 
 
 ## v1.5.0 - 2016-11-11
 ### Added
 - Bower and npm support
 - Changelog
+
 
 
 ## v1.4.1 - 2016-08-05
@@ -26,6 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Possible inconsistency with Javascript `parseInt()` function
 
 
+
 ## v1.4.0 - 2016-06-29
 ### Added
 - `imagePosition` option
@@ -36,9 +45,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - loading.gif image is now embedded in the code as Data URI
 
 
+
 ## v1.3 - 2016-05-25
 ### Added
 - `z-index` option
+
 
 
 ## v1.2 - 2016-04-22
@@ -47,10 +58,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Extra *Progress*
 
 
+
 ## v1.1 - 2015-12-31
 ### Added
 - Font Awesome support
 - Custom element support
+
 
 
 ## v1.0 - 2015-02-15
