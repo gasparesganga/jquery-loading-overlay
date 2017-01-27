@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay Extras - Progress
     Author          : Gaspare Sganga
-    Version         : 1.5.2
+    Version         : 1.5.3
     License         : MIT
     Documentation   : http://gasparesganga.com/labs/jquery-loading-overlay/
 ****************************************************************************************************/
@@ -30,9 +30,11 @@ var LoadingOverlayProgress = function(options){
         var wrapper = $("<div>", {
             class   : "loadingoverlay_progress_wrapper",
             css     : {
-                "position"  : "relative",
+                "position"  : "absolute",
+                "top"       : 0,
+                "left"      : 0,
                 "width"     : "100%",
-                "flex"      : "1 0 auto"
+                "height"    : "100%"
             }
         });
         _bar = $("<div>", {

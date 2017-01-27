@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.5.3 - 2017-01-27
+### Fixed
+- CSS positioning problem with Extra *Progress* when used with Font Awesome
+
+
+
 ## v1.5.2 - 2016-12-09
 ### Changed
 - Option `zIndex` defaults to 9999

@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 1.5.2
+    Version         : 1.5.3
     License         : MIT
     Documentation   : http://gasparesganga.com/labs/jquery-loading-overlay/
 ****************************************************************************************************/
@@ -64,6 +64,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 class   : "loadingoverlay",
                 css     : {
                     "background-color"  : settings.color,
+                    "position"          : "relative",
                     "display"           : "flex",
                     "flex-direction"    : "column",
                     "align-items"       : "center",
