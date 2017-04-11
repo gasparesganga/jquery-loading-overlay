@@ -59,7 +59,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         var wholePage   = container.is("body");
         var count       = container.data("LoadingOverlayCount");
         if (count === undefined) count = 0;
-        if (count == 0) {
+        if (count === 0) {
             var overlay = $("<div>", {
                 class   : "loadingoverlay",
                 css     : {
@@ -128,7 +128,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             var resizeIntervalId = container.data("LoadingOverlayResizeIntervalId");
             if (resizeIntervalId) clearInterval(resizeIntervalId);
             container.data("LoadingOverlay").fadeOut(container.data("LoadingOverlayFadeOutDuration"), function(){
-                $(this).remove()
+                $(this).remove();
             });
             container.removeData(["LoadingOverlay", "LoadingOverlayCount", "LoadingOverlayFadeOutDuration", "LoadingOverlayResizeIntervalId"]);
         } else {
