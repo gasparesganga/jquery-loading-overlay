@@ -1,9 +1,9 @@
 /***************************************************************************************************
 LoadingOverlay Extras - Progress
     Author          : Gaspare Sganga
-    Version         : 1.5.3
+    Version         : 1.5.4
     License         : MIT
-    Documentation   : http://gasparesganga.com/labs/jquery-loading-overlay/
+    Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
 ****************************************************************************************************/
 var LoadingOverlayProgress = function(options){
     var _bar;

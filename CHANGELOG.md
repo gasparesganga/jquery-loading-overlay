@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.5.4 - 2017-09-29
+### Changed
+- Option `zIndex` defaults to the highests value allowed (2147483647) to prevent other elements to be displayed over LoadingOverlay
+
+### Fixed
+- Object keys always expressed as string literals instead of identifiers (fixes some weird Microsoft Edge behaviour)
+- Minor code fixes and improvements
+- Added `main` field to package.json according to jsDelivr recommendations
+
+
+
 ## v1.5.3 - 2017-01-27
 ### Fixed
 - CSS positioning problem with Extra *Progress* when used with Font Awesome

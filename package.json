@@ -1,9 +1,9 @@
 {
     "name": "gasparesganga-jquery-loading-overlay",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "description": "A flexible loading overlay jQuery Plugin",
-    "homepage": "http://gasparesganga.com/labs/jquery-loading-overlay/",
-    "author": "Gaspare Sganga <contact@gasparesganga.com> (http://gasparesganga.com)",
+    "homepage": "https://gasparesganga.com/labs/jquery-loading-overlay/",
+    "author": "Gaspare Sganga <contact@gasparesganga.com> (https://gasparesganga.com)",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -12,6 +12,7 @@
     "bugs": {
         "url": "https://github.com/gasparesganga/jquery-loading-overlay/issues"
     },
+    "main": "src/loadingoverlay.js",
     "keywords": [
         "ecosystem:jquery",
         "jquery-plugin",

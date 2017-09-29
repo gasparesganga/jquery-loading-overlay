@@ -1,9 +1,9 @@
 {
     "name": "gasparesganga-jquery-loading-overlay",
     "description": "A flexible loading overlay jQuery Plugin",
-    "homepage": "http://gasparesganga.com/labs/jquery-loading-overlay/",
+    "homepage": "https://gasparesganga.com/labs/jquery-loading-overlay/",
     "authors": [
-        "Gaspare Sganga <contact@gasparesganga.com> (http://gasparesganga.com)"
+        "Gaspare Sganga <contact@gasparesganga.com> (https://gasparesganga.com)"
     ],
     "license": "MIT",
     "keywords": [
