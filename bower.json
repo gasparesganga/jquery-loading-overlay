@@ -16,7 +16,7 @@
     ],
     "main": [
         "src/loadingoverlay.js",
-        "src/extras/loadingoverlay_progress/loadingoverlay_progress.js"
+        "extras/loadingoverlay_progress/loadingoverlay_progress.js"
     ],
     "repository": {
         "type": "git",
