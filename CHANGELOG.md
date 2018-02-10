@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.6.0 - 2018-02-10
+### Added
+- AMD and CommonJS support
+- Typings for TypeScript
+
+### Changed
+- Extra *Progress*: it is possible to disable shown text
+
+### Fixed
+- Extra *Progress*: jQuery is referenced through global `jQuery` variable instead of `$` directly
+- Main path of Extra *Progress* in bower.json 
+
+
+
 ## v1.5.4 - 2017-09-29
 ### Changed
 - Option `zIndex` defaults to the highests value allowed (2147483647) to prevent other elements to be displayed over LoadingOverlay
