@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v2.0.0 - 2018-02-xx
+
+
+
+
 ## v1.6.0 - 2018-02-10
 ### Added
 - AMD and CommonJS support

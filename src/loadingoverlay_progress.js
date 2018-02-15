@@ -1,10 +1,10 @@
 /***************************************************************************************************
-LoadingOverlay Extras - Progress
+LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 1.6.0
+    Version         : 2.0.0dev
     License         : MIT
     Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
-****************************************************************************************************/
+***************************************************************************************************/
 ;var LoadingOverlayProgress = function(options){
     var $ = jQuery;
     var _bar;
