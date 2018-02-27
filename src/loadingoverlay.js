@@ -22,32 +22,53 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     // Default Settings
     var _defaults = {
         // Background
-        background          : "rgba(255, 255, 255, 0.8)",
-        backgroundClass     : "",
+        background              : "rgba(255, 255, 255, 0.8)",
+        backgroundClass         : "",
         // Image
-        image               : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iNTAwIiBjeT0iOTAiLz48ZWxsaXBzZSByeD0iODAiIHJ5PSI4MCIgY3g9IjUwMCIgY3k9IjkxMCIvPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iOTAiIGN5PSI1MDAiLz48ZWxsaXBzZSByeD0iODAiIHJ5PSI4MCIgY3g9IjkxMCIgY3k9IjUwMCIvPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iMjEyIiBjeT0iMjEyIi8+PGVsbGlwc2Ugcng9IjgwIiByeT0iODAiIGN4PSI3ODgiIGN5PSIyMTIiLz48ZWxsaXBzZSByeD0iODAiIHJ5PSI4MCIgY3g9IjIxMiIgY3k9Ijc4OCIvPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iNzg4IiBjeT0iNzg4Ii8+PC9zdmc+",
-        imageAnimation      : "2000ms rotate_right",
-        imageColor          : "#202020",
-        imageClass          : "",
+        image                   : "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iNTAwIiBjeT0iOTAiLz48ZWxsaXBzZSByeD0iODAiIHJ5PSI4MCIgY3g9IjUwMCIgY3k9IjkxMCIvPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iOTAiIGN5PSI1MDAiLz48ZWxsaXBzZSByeD0iODAiIHJ5PSI4MCIgY3g9IjkxMCIgY3k9IjUwMCIvPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iMjEyIiBjeT0iMjEyIi8+PGVsbGlwc2Ugcng9IjgwIiByeT0iODAiIGN4PSI3ODgiIGN5PSIyMTIiLz48ZWxsaXBzZSByeD0iODAiIHJ5PSI4MCIgY3g9IjIxMiIgY3k9Ijc4OCIvPjxlbGxpcHNlIHJ4PSI4MCIgcnk9IjgwIiBjeD0iNzg4IiBjeT0iNzg4Ii8+PC9zdmc+",
+        imageAnimation          : "2000ms rotate_right",
+        imageAutoResize         : true,
+        imageResizeFactor       : 1,
+        imageColor              : "#202020",
+        imageClass              : "",
+        imageOrder              : 1,
         // Font Awesome
-        fontawesome         : "",
-        fontawesomeColor    : "#202020",
+        fontawesome             : "",
+        fontawesomeAutoResize   : true,
+        fontawesomeResizeFactor : 1,
+        fontawesomeColor        : "#202020",
+        fontawesomeOrder        : 2,
         // Custom
-        custom              : "",
-        customAnimation     : false,
+        custom                  : "",
+        customAnimation         : false,
+        customAutoResize        : true,
+        customResizeFactor      : 1,
+        customOrder             : 3,
+        // Text
+        text                    : "",
+        textAnimation           : false,
+        textAutoResize          : true,
+        textResizeFactor        : 0.5,
+        textClass               : "",
+        textCss                 : {
+            "color"                 : "#202020",
+            "font-family"           : "sans-serif",
+            "font-style"            : "normal",
+            "font-weight"           : "normal",
+            "white-space"           : "nowrap"
+        },
+        textOrder               : 4,
         
         
-        
-        direction           : "column",
-        fade                : [400, 200],
-        
-        //size                : "50%",
-        size                : "auto",
-        maxSize             : 120,
-        minSize             : 20,
-        
-        resizeInterval      : 50,
-        zIndex              : 2147483647
+        // Sizing
+        size                    : 50,
+        maxSize                 : 120,
+        minSize                 : 20,
+        // General
+        direction               : "column",
+        fade                    : [400, 200],
+        resizeInterval          : 50,
+        zIndex                  : 2147483647
     };
     
     // Required CSS
@@ -58,22 +79,20 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             "display"           : "flex",
             "flex-wrap"         : "nowrap",
             "align-items"       : "center",
-            "justify-content"   : "center"
+            "justify-content"   : "space-evenly"
         },
         element : {
             "box-sizing"        : "border-box",
+            "flex"              : "0 0 auto",
             "display"           : "flex",
-            "align-items"       : "stretch"
+            "justify-content"   : "center",
+            "align-items"       : "center"
         },
         element_child : {
-            "flex"          : "1 1 100%",
-            "align-self"    : "stretch",
-            "width"         : "100%",
-            "height"        : "100%",
-            "min-width"     : "100%",
-            "min-height"    : "100%",
-            "man-width"     : "100%",
-            "man-height"    : "100%"
+            "flex"              : "1 1 100%",
+            "align-self"        : "stretch",
+            "width"             : "100%",
+            "height"            : "100%"
         }
     };
     
@@ -82,7 +101,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         "count"             : 0,
         "fadeOut"           : 0,
         "overlay"           : undefined,
-        "resizeIntervalId"  : undefined
+        "resizeIntervalId"  : undefined,
+        "text"              : undefined
     };
     
     // Animations whitelist and defaults
@@ -97,6 +117,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         time    : "2000ms"
     };
     
+    
     $.LoadingOverlaySetup = function(settings){
         $.extend(true, _defaults, settings);
     };
@@ -110,6 +131,10 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 
             case "hide":
                 _Hide("body", options);
+                break;  
+                
+            case "text":
+                _Text("body", options);
                 break;
         }
     };
@@ -126,12 +151,21 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 return this.each(function(){
                     _Hide(this, options);
                 });
+                
+            case "text":
+                return this.each(function(){
+                    _Text(this, options);
+                });
         }
     };
     
     
     function _Show(container, settings){
-        container       = $(container);    
+        container           = $(container);
+        settings.size       = _ParseSize(settings.size);
+        settings.maxSize    = parseInt(settings.maxSize, 10);
+        settings.minSize    = parseInt(settings.minSize, 10);
+        
         var data        = container.data("loadingoverlay");
         var wholePage   = container.is("body");
         if (typeof data === "undefined") {
@@ -147,7 +181,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             .css("flex-direction", settings.direction.toLowerCase() === "row" ? "row" : "column");
             if (settings.backgroundClass) {
                 data.overlay.addClass(settings.backgroundClass);
-            } else if (settings.background) {
+            } else {
                 data.overlay.css("background", settings.background);
             }
             if (wholePage) {
@@ -165,7 +199,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             
             // Image
             if (settings.image) {
-                var element = _CreateElement(data.overlay, settings.imageAnimation);
+                var element = _CreateElement(data.overlay, settings.imageOrder, settings.imageAutoResize, settings.imageResizeFactor, settings.imageAnimation);
                 if (settings.image.slice(0, 14).toLowerCase() === "data:image/svg" || settings.image.slice(-4).toLowerCase() === ".svg") {
                     // SVG
                     element.load(settings.image);
@@ -174,38 +208,50 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     } else if (settings.imageColor) {
                         element.css("fill", settings.imageColor);
                     }
+                    element.children().css(_css.element_child);
                 } else {
                     // Raster
-                    $("<img>", {
-                        "src"   : settings.image
-                    }).appendTo(element);
+                    element.css({
+                        "background-image"      : "url(" + settings.image + ")",
+                        "background-position"   : "center",
+                        "background-repeat"     : "no-repeat",
+                        "background-size"       : "cover"
+                    }).addClass(settings.imageClass);
                 }
-                element.children().css(_css.element_child);
             }
             
             // Font Awesome
             if (settings.fontawesome) {
-                var element = _CreateElement(data.overlay, false);
+                var element = _CreateElement(data.overlay, settings.fontawesomeOrder, settings.fontawesomeAutoResize, settings.fontawesomeResizeFactor, false);
                 element.addClass("loadingoverlay_fa " + settings.fontawesome)
                 if (settings.fontawesomeColor) element.css("color", settings.fontawesomeColor);
             }
             
             // Custom
             if (settings.custom) {
-                var element = _CreateElement(data.overlay, settings.customAnimation);
+                var element = _CreateElement(data.overlay, settings.customOrder, settings.customAutoResize, settings.customResizeFactor, settings.customAnimation);
                 element.append(settings.custom);
                 element.children().css(_css.element_child);
             }
             
-            
-            
+            // Text
+            if (settings.text) {
+                data.text = _CreateElement(data.overlay, settings.textOrder, settings.textAutoResize, settings.textResizeFactor, settings.textAnimation)
+                    .addClass("loadingoverlay_text")
+                    .text(settings.text);
+                if (settings.textClass) {
+                    data.text.addClass(settings.textClass);
+                } else {
+                    data.text.css(settings.textCss || {});
+                }
+            }
             
             
             // Resize
-            _Resize(container, data.overlay, settings, wholePage);
+            _Resize(container, data.overlay, settings, wholePage, true);
             if (settings.resizeInterval > 0) {
                 data.resizeIntervalId = setInterval(function(){
-                    _Resize(container, data.overlay, settings, wholePage);
+                    _Resize(container, data.overlay, settings, wholePage, false);
                 }, settings.resizeInterval);
             }
             
@@ -242,7 +288,20 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         }
     }
     
-    function _Resize(container, overlay, settings, wholePage){
+    function _Text(container, newText){
+        container   = $(container);
+        var data    = container.data("loadingoverlay");
+        if (typeof data === "undefined" || !data.text) return;
+        if (newText === false) {
+            data.text.hide();
+        } else {
+            data.text.text(newText).show();
+        }
+    }
+    
+    
+    function _Resize(container, overlay, settings, wholePage, force){
+        // Overlay
         if (!wholePage) {
             var x = (container.css("position") === "fixed") ? container.position() : container.offset();
             overlay.css({
@@ -252,26 +311,46 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 "height"    : container.innerHeight()
             });
         }
-        var c    = wholePage ? $(window) : container;
-        var size = "auto";
-        if (settings.size && settings.size !== "auto") {
-            size = Math.min(c.innerWidth(), c.innerHeight()) * parseFloat(settings.size) / 100;
-            if (settings.maxSize && size > parseInt(settings.maxSize, 10)) size = parseInt(settings.maxSize, 10) + "px";
-            if (settings.minSize && size < parseInt(settings.minSize, 10)) size = parseInt(settings.minSize, 10) + "px";
+        
+        // Elements
+        if (settings.size) {
+            var c    = wholePage ? $(window) : container;
+            var size = settings.size;
+            if (typeof size !== "string") {
+                size = Math.min(c.innerWidth(), c.innerHeight()) * size / 100;
+                if (settings.maxSize && size > settings.maxSize) size = settings.maxSize;
+                if (settings.minSize && size < settings.minSize) size = settings.minSize;
+            }
+            overlay.children(".loadingoverlay_element").each(function(){
+                var $this = $(this);
+                if (force || $this.data("loadingoverlay_autoresize")) {
+                    var resizeFactor = $this.data("loadingoverlay_resizefactor");
+                    if ($this.hasClass("loadingoverlay_fa") || $this.hasClass("loadingoverlay_text")) {
+                        $this.css("font-size", size * resizeFactor);
+                    } else {
+                        $this.css({
+                            "width"  : size * resizeFactor,
+                            "height" : size * resizeFactor
+                        });
+                    }
+                }
+            });
         }
-        overlay.children(".loadingoverlay_element").css({
-            "width"  : size,
-            "height" : size
-        });
-        overlay.children(".loadingoverlay_fa").css("font-size", size);
     }
     
     
-    function _CreateElement(overlay, animation){
+    function _CreateElement(overlay, order, autoResize, resizeFactor, animation){
         var element = $("<div>", {
-            "class" : "loadingoverlay_element"
+            "class" : "loadingoverlay_element",
+            "css"   : {
+                "order" : order
+            }
         })
         .css(_css.element)
+        .data({
+            "loadingoverlay_autoresize"     : autoResize,
+            "loadingoverlay_resizefactor"   : resizeFactor
+        })
         .appendTo(overlay);
         
         // Parse animation
@@ -310,6 +389,12 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     
     function _ValidateAnimation(value){
         return _animationsWhitelist.indexOf(value) > -1;
+    }
+    
+    
+    function _ParseSize(value){
+        // "rem", "vmin" and "vmax" are covered with "em", "in" and "ax"
+        return (typeof value !== "string" || ["px", "em", "cm", "mm", "in", "pt", "pc", "vh", "vw", "ax"].indexOf(value.slice(-2)) === -1) ? parseFloat(value) : value;
     }
     
     
