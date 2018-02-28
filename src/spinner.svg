@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+    <ellipse rx="80" ry="80" cx="500" cy="90"/>
+    <ellipse rx="80" ry="80" cx="500" cy="910"/>
+    <ellipse rx="80" ry="80" cx="90" cy="500"/>
+    <ellipse rx="80" ry="80" cx="910" cy="500"/>
+    <ellipse rx="80" ry="80" cx="212" cy="212"/>
+    <ellipse rx="80" ry="80" cx="788" cy="212"/>
+    <ellipse rx="80" ry="80" cx="212" cy="788"/>
+    <ellipse rx="80" ry="80" cx="788" cy="788"/>
+</svg>
