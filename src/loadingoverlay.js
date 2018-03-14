@@ -61,7 +61,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         progressOrder           : 5,
         progressSpeed           : 200,
         progressMin             : 0,
-        progressMax             : 100,       
+        progressMax             : 100,
         // Sizing
         size                    : 50,
         maxSize                 : 120,
@@ -140,7 +140,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 
             case "hide":
                 _Hide("body", options);
-                break;  
+                break;
                 
             case "text":
                 _Text("body", options);
@@ -211,8 +211,6 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     "width"     : "100%",
                     "height"    : "100%"
                 });
-            } else {
-                data.overlay.css("position", (container.css("position") === "fixed") ? "fixed" : "absolute");
             }
             if (typeof settings.zIndex !== "undefined") data.overlay.css("z-index", settings.zIndex);
             
@@ -273,9 +271,9 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     .appendTo(element);
                 data.progress = {
                     bar     : $("<div>").css(_css.progress_bar).appendTo(wrapper),
-                    min     : settings.progressMin,
-                    max     : settings.progressMax,
-                    speed   : settings.progressSpeed
+                    min     : parseFloat(settings.progressMin),
+                    max     : parseFloat(settings.progressMax),
+                    speed   : parseInt(settings.progressSpeed, 10)
                 };
                 if (settings.progressClass) {
                     data.progress.bar.addClass(settings.progressClass);
@@ -325,27 +323,27 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         }
     }
     
-    function _Text(container, newText){
+    function _Text(container, value){
         container   = $(container);
         var data    = container.data("loadingoverlay");
         if (typeof data === "undefined" || !data.text) return;
-        if (newText === false) {
+        if (value === false) {
             data.text.hide();
         } else {
             data.text
                     .show()
-                    .text(newText);
+                    .text(value);
         }
     }
     
-    function _Progress(container, newStatus){
+    function _Progress(container, value){
         container   = $(container);
         var data    = container.data("loadingoverlay");
         if (typeof data === "undefined" || !data.progress) return;
-        if (newStatus === false) {
+        if (value === false) {
             data.progress.bar.hide();
         } else {
-            var v = ((parseFloat(newStatus) || 0) - data.progress.min) * 100 / (data.progress.max - data.progress.min);
+            var v = ((parseFloat(value) || 0) - data.progress.min) * 100 / (data.progress.max - data.progress.min);
             if (v < 0)   v = 0;
             if (v > 100) v = 100;
             data.progress.bar
@@ -356,13 +354,16 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         }
     }
     
+    
     function _Resize(container, overlay, settings, wholePage, force){
         // Overlay
         if (!wholePage) {
-            var x = (container.css("position") === "fixed") ? container.position() : container.offset();
+            var isFixed = container.css("position") === "fixed";
+            var pos     = isFixed ? container.position() : container.offset();            
             overlay.css({
-                "top"       : x.top + parseInt(container.css("border-top-width"), 10),
-                "left"      : x.left + parseInt(container.css("border-left-width"), 10),
+                "position"  : isFixed ? "fixed" : "absolute",
+                "top"       : pos.top + parseInt(container.css("border-top-width"), 10),
+                "left"      : pos.left + parseInt(container.css("border-left-width"), 10),
                 "width"     : container.innerWidth(),
                 "height"    : container.innerHeight()
             });
@@ -397,7 +398,6 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 }
             });
         }
-        
     }
     
     
