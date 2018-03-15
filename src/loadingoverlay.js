@@ -68,7 +68,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         minSize                 : 20,
         // Misc
         direction               : "column",
-        fade                    : [400, 200],
+        fade                    : true,
+        _fadeValues             : [400, 200],
         resizeInterval          : 50,
         zIndex                  : 2147483647
     };
@@ -240,7 +241,10 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             // Font Awesome
             if (settings.fontawesome) {
                 var element = _CreateElement(data.overlay, settings.fontawesomeOrder, settings.fontawesomeAutoResize, settings.fontawesomeResizeFactor, false)
-                    .addClass("loadingoverlay_fa " + settings.fontawesome)
+                    .addClass("loadingoverlay_fa");
+                $("<div>", {
+                    "class" : settings.fontawesome
+                }).appendTo(element);
                 if (settings.fontawesomeColor) element.css("color", settings.fontawesomeColor);
             }
             
@@ -290,15 +294,18 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 }, settings.resizeInterval);
             }
             
-            //Fade
-            if (!settings.fade) {
+            // Fade
+            if (!settings.fade) {;
                 settings.fade = [0, 0];
             } else if (settings.fade === true) {
-                settings.fade = _defaults.fade;
+                settings.fade = _defaults._fadeValues;
             } else if (typeof settings.fade === "string" || typeof settings.fade === "number") {
                 settings.fade = [settings.fade, settings.fade];
+            } else if ($.type(settings.fade) === "array" && settings.fade.length < 2) {
+                settings.fade = [settings.fade[0], settings.fade[0]];
             }
-            data.fadeOut = settings.fade[1];
+            settings.fade = [parseInt(settings.fade[0], 10), parseInt(settings.fade[1], 10)]
+            data.fadeOut  = settings.fade[1];
             
             // Show LoadingOverlay
             data.overlay
