@@ -387,7 +387,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     } else if ($this.hasClass("loadingoverlay_progress")) {
                         container.data("loadingoverlay").progress.bar.css({
                            "height" : (size * resizeFactor) + settings.size.units,
-                           "top"    : $this.offset().top 
+                           "top"    : $this.position().top 
                         }).css("top", "-=" + (size * resizeFactor * 0.5) + settings.size.units);
                     } else {
                         $this.css({
