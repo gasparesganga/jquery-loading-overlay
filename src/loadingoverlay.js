@@ -372,8 +372,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         // Elements
         if (settings.size) {
             var c    = wholePage ? $(window) : container;
-            var size = settings.size;
-            if (typeof size !== "string") {
+            var size = settings.size.value;
+            if (!settings.size.fixed) {
                 size = Math.min(c.innerWidth(), c.innerHeight()) * size / 100;
                 if (settings.maxSize && size > settings.maxSize) size = settings.maxSize;
                 if (settings.minSize && size < settings.minSize) size = settings.minSize;
@@ -383,16 +383,16 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 if (force || $this.data("loadingoverlay_autoresize")) {
                     var resizeFactor = $this.data("loadingoverlay_resizefactor");
                     if ($this.hasClass("loadingoverlay_fa") || $this.hasClass("loadingoverlay_text")) {
-                        $this.css("font-size", size * resizeFactor);
+                        $this.css("font-size", (size * resizeFactor) + settings.size.units);
                     } else if ($this.hasClass("loadingoverlay_progress")) {
                         container.data("loadingoverlay").progress.bar.css({
-                           "height" : size * resizeFactor,
-                           "top"    : $this.offset().top - (size * resizeFactor * 0.5)
-                        });
+                           "height" : (size * resizeFactor) + settings.size.units,
+                           "top"    : $this.offset().top 
+                        }).css("top", "-=" + (size * resizeFactor * 0.5) + settings.size.units);
                     } else {
                         $this.css({
-                            "width"  : size * resizeFactor,
-                            "height" : size * resizeFactor
+                            "width"  : (size * resizeFactor) + settings.size.units,
+                            "height" : (size * resizeFactor) + settings.size.units
                         });
                     }
                 }
@@ -455,8 +455,33 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     
     
     function _ParseSize(value){
-        // "rem", "vmin" and "vmax" are covered with "em", "in" and "ax"
-        return (typeof value !== "string" || ["px", "em", "cm", "mm", "in", "pt", "pc", "vh", "vw", "ax"].indexOf(value.slice(-2)) === -1) ? parseFloat(value) : value;
+        if (!value || value < 0) {
+            return false;
+        } else if (typeof value === "string" && ["vmin", "vmax"].indexOf(value.slice(-4)) > -1) {
+            return {
+                fixed   : true,
+                units   : value.slice(-4),
+                value   : value.slice(0, -4)
+            };
+        } else if (typeof value === "string" && ["rem"].indexOf(value.slice(-3)) > -1) {
+            return {
+                fixed   : true,
+                units   : value.slice(-3),
+                value   : value.slice(0, -3)
+            };
+        } else if (typeof value === "string" && ["px", "em", "cm", "mm", "in", "pt", "pc", "vh", "vw"].indexOf(value.slice(-2)) > -1) {
+            return {
+                fixed   : true,
+                units   : value.slice(-2),
+                value   : value.slice(0, -2)
+            };
+        } else {
+            return {
+                fixed   : false,
+                units   : "px",
+                value   : parseFloat(value)
+            }; 
+        }
     }
     
     
