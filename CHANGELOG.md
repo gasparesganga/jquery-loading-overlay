@@ -5,8 +5,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## v2.0.0 - 2018-02-xx
+## v2.0.0 - 2018-03-16
+### Added
+- SVG images support
+- CSS3 animations support
+- 4 different built-in keyframes animations: `rotate_right`, `rotate_left`, `fadein` and `pulse`
+- Text element support
+- Progress Bar element support
+- New *actions* `text` and `progress`
+- Fixed size support
+- Javascript sourcemaps
+- New options:
+  * `background`, `backgroundClass`
+  * `imageAnimation`, `imageAutoResize`, `imageResizeFactor`, `imageColor`, `imageClass`, `imageOrder`
+  * `fontawesomeAnimation`, `fontawesomeAutoResize`, `fontawesomeResizeFactor`, `fontawesomeColor`, `fontawesomeOrder`
+  * `customAnimation`, `customAutoResize`, `customResizeFactor`, `customOrder`
+  * `text`, `textAnimation`, `textAutoResize`, `textResizeFactor`, `textColor`, `textClass`, `textOrder`
+  * `progress`, `progressAutoResize`, `progressResizeFactor`, `progressColor`, `progressClass`, `progressOrder`, `progressSpeed`, `progressMin`, `progressMax`
+  * `direction`      
 
+### Changed
+- `color` option is now named `background`
+- Default image is a modern, lightweight and customizable SVG instead of the old fashioned GIF
+- Default `maxSize` increased to `120px`
+- Folder structure has changed, with source files under `src/` and production files under `dist/`
+
+### Removed
+- `imagePosition` option
+- *Extra Progress*
+
+### Fixed
+- Auto detection of container's CSS `position` change to/from `fixed`
 
 
 
