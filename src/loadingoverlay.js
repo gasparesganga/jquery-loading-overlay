@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 2.0.0
+    Version         : 2.0.1
     License         : MIT
     Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
 ***************************************************************************************************/
@@ -83,7 +83,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             "display"           : "flex",
             "flex-wrap"         : "nowrap",
             "align-items"       : "center",
-            "justify-content"   : "space-evenly"
+            "justify-content"   : "space-around"
         },
         element : {
             "box-sizing"        : "border-box",
@@ -92,6 +92,10 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             "display"           : "flex",
             "justify-content"   : "center",
             "align-items"       : "center"
+        },
+        element_svg : {
+            "width"             : "100%",
+            "height"            : "100%"
         },
         progress_wrapper: {
             "position"          : "absolute",
@@ -222,10 +226,13 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 if (settings.image.slice(0, 4).toLowerCase() === "<svg" && settings.image.slice(-6).toLowerCase() === "</svg>") {
                     // Inline SVG
                     element.append(settings.image);
+                    element.children().css(_css.element_svg);
                     if (!settings.imageClass && settings.imageColor) element.css("fill", settings.imageColor);
                 } else if (settings.image.slice(-4).toLowerCase() === ".svg" || settings.image.slice(0, 14).toLowerCase() === "data:image/svg") {
                     // SVG file or base64-encoded SVG
-                    element.load(settings.image);
+                    element.load(settings.image, function(){
+                        element.children().css(_css.element_svg);
+                    });
                     if (!settings.imageClass && settings.imageColor) element.css("fill", settings.imageColor);
                 } else {
                     // Raster

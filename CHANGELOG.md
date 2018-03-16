@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v2.0.1 - 2018-03-16
+### Fixed
+- Changed value for overlay `justify-content` CSS property from `space-evenly` to `space-around`: Edge didn't like the former
+- Set explicit `width` and `height` for SVG, addressing bug in Chrome
+
+
+
 ## v2.0.0 - 2018-03-16
 ### Added
 - SVG images support
