@@ -34,6 +34,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         imageOrder              : 1,
         // Font Awesome
         fontawesome             : "",
+        fontawesomeAnimation    : false,
         fontawesomeAutoResize   : true,
         fontawesomeResizeFactor : 1,
         fontawesomeColor        : "#202020",
@@ -240,7 +241,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             
             // Font Awesome
             if (settings.fontawesome) {
-                var element = _CreateElement(data.overlay, settings.fontawesomeOrder, settings.fontawesomeAutoResize, settings.fontawesomeResizeFactor, false)
+                var element = _CreateElement(data.overlay, settings.fontawesomeOrder, settings.fontawesomeAutoResize, settings.fontawesomeResizeFactor, settings.fontawesomeAnimation)
                     .addClass("loadingoverlay_fa");
                 $("<div>", {
                     "class" : settings.fontawesome
