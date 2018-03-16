@@ -34,20 +34,20 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         imageOrder              : 1,
         // Font Awesome
         fontawesome             : "",
-        fontawesomeAnimation    : false,
+        fontawesomeAnimation    : "",
         fontawesomeAutoResize   : true,
         fontawesomeResizeFactor : 1,
         fontawesomeColor        : "#202020",
         fontawesomeOrder        : 2,
         // Custom
         custom                  : "",
-        customAnimation         : false,
+        customAnimation         : "",
         customAutoResize        : true,
         customResizeFactor      : 1,
         customOrder             : 3,
         // Text
         text                    : "",
-        textAnimation           : false,
+        textAnimation           : "",
         textAutoResize          : true,
         textResizeFactor        : 0.5,
         textColor               : "#202020",
