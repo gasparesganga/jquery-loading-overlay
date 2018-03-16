@@ -27,7 +27,7 @@
     "devDependencies": {
         "del": "^3.0.0",
         "gulp": "^4.0.0",
-        "gulp-header": "^2.0.1",
+        "gulp-header": "^2.0.5",
         "gulp-rename": "^1.2.2",
         "gulp-replace": "^0.6.1",
         "gulp-sourcemaps": "^2.6.4",
