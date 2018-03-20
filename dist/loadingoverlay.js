@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 2.0.1
+    Version         : 2.0.2
     License         : MIT
     Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
 ***************************************************************************************************/
@@ -374,7 +374,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         // Overlay
         if (!wholePage) {
             var isFixed = container.css("position") === "fixed";
-            var pos     = isFixed ? container.position() : container.offset();            
+            var pos     = isFixed ? container[0].getBoundingClientRect() : container.offset();            
             overlay.css({
                 "position"  : isFixed ? "fixed" : "absolute",
                 "top"       : pos.top + parseInt(container.css("border-top-width"), 10),
