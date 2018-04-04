@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v2.1.0 - 2018-04-04
+### Added
+- `Resize` *action*
+- `progressFixedPosition` option
+- Control over both SVG *fill* and *stroke* colors through `imageColor` option passed as two-elements array
+
+### Changed
+- Default SVG image uses `circle` elements instead of `ellipse` ones
+
+
+
 ## v2.0.2 - 2018-03-20
 ### Fixed
 - Using `getBoundingClientRect()` instead of jQuery `.position()` when LoadingOverlay is displayed on an element with `position : fixed`
