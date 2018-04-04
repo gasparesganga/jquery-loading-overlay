@@ -97,7 +97,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             "width"             : "100%",
             "height"            : "100%"
         },
-        progress_forced : {
+        progress_fixed : {
             "position"          : "absolute",
             "left"              : "0",
             "width"             : "100%"
@@ -327,7 +327,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     .appendTo(element);
                 data.progress = {
                     bar     : $("<div>").css(_css.progress_bar).appendTo(wrapper),
-                    force   : false,
+                    fixed   : false,
                     margin  : 0,
                     min     : parseFloat(settings.progressMin),
                     max     : parseFloat(settings.progressMax),
@@ -335,22 +335,22 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 };
                 var progressPositionParts = (settings.progressFixedPosition + "").replace(/\s\s+/g, " ").toLowerCase().split(" ");
                 if (progressPositionParts.length === 2 && _ValidateProgressPosition(progressPositionParts[0])) {
-                    data.progress.force     = progressPositionParts[0];
+                    data.progress.fixed     = progressPositionParts[0];
                     data.progress.margin    = _ParseSize(progressPositionParts[1]);
                 } else if (progressPositionParts.length === 2 && _ValidateProgressPosition(progressPositionParts[1])) {
-                    data.progress.force     = progressPositionParts[1];
+                    data.progress.fixed     = progressPositionParts[1];
                     data.progress.margin    = _ParseSize(progressPositionParts[0]);
                 } else if (progressPositionParts.length === 1 && _ValidateProgressPosition(progressPositionParts[0])) {
-                    data.progress.force     = progressPositionParts[0];
+                    data.progress.fixed     = progressPositionParts[0];
                     data.progress.margin    = 0;
                 }
-                if (data.progress.force === "top") {
+                if (data.progress.fixed === "top") {
                     element
-                        .css(_css.progress_forced)
+                        .css(_css.progress_fixed)
                         .css("top", data.progress.margin ? data.progress.margin.value + (data.progress.margin.fixed ? data.progress.margin.units : "%") : 0);
-                } else if (data.progress.force === "bottom") {
+                } else if (data.progress.fixed === "bottom") {
                     element
-                        .css(_css.progress_forced)
+                        .css(_css.progress_fixed)
                         .css("top", "auto");
                 }
                 if (settings.progressClass) {
@@ -476,11 +476,11 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     } else if ($this.hasClass("loadingoverlay_progress")) {
                         var progress = container.data("loadingoverlay").progress;
                         progress.bar.css("height", (size * resizeFactor) + data.settings.size.units);
-                        if (!progress.force) {
+                        if (!progress.fixed) {
                             progress.bar
                                 .css("top", $this.position().top)
                                 .css("top", "-=" + (size * resizeFactor * 0.5) + data.settings.size.units);
-                        } else if (progress.force === "bottom") {
+                        } else if (progress.fixed === "bottom") {
                             $this
                                 .css("bottom", progress.margin ? progress.margin.value + (progress.margin.fixed ? progress.margin.units : "%") : 0)
                                 .css("bottom", "+=" + (size * resizeFactor) + data.settings.size.units);
