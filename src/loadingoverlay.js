@@ -71,7 +71,6 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         // Misc
         direction               : "column",
         fade                    : true,
-        _fadeValues             : [400, 200],
         resizeInterval          : 50,
         zIndex                  : 2147483647
     };
@@ -119,15 +118,16 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     // Data Template
     var _dataTemplate = {
         "count"             : 0,
-        "fadeOut"           : undefined,
         "overlay"           : undefined,
+        "settings"          : undefined,
+        "wholePage"         : undefined,
         "resizeIntervalId"  : undefined,
         "text"              : undefined,
         "progress"          : undefined
     };
     
-    // Whitelist
-    var _whitelist = {
+    // Whitelists
+    var _whitelists = {
         animations : [
             "rotate_right",
             "rotate_left",
@@ -145,7 +145,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         animations : {
             name    : "rotate_right",
             time    : "2000ms"
-        }
+        },
+        fade : [400, 200]
     };
     
     
@@ -163,6 +164,10 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             case "hide":
                 Hide("body", options);
                 break;
+                
+            case "resize":
+                Resize("body", options);
+                break;  
                 
             case "text":
                 Text("body", options);
@@ -187,6 +192,11 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     Hide(this, options);
                 });
                 
+             case "resize":
+                return this.each(function(){
+                    Resize(this, options);
+                });
+                
             case "text":
                 return this.each(function(){
                     Text(this, options);
@@ -207,11 +217,11 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         settings.minSize        = parseInt(settings.minSize, 10) || 0;
         settings.resizeInterval = parseInt(settings.resizeInterval, 10) || 0;
         
-        var data        = container.data("loadingoverlay");
-        var wholePage   = container.is("body");
+        var data = container.data("loadingoverlay");
         if (typeof data === "undefined") {
             // Init data
             data = $.extend({}, _dataTemplate);
+            data.wholePage = container.is("body");
             container.data("loadingoverlay", data);
             
             // Overlay
@@ -225,7 +235,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
             } else {
                 data.overlay.css("background", settings.background);
             }
-            if (wholePage) {
+            if (data.wholePage) {
                 data.overlay.css({
                     "position"  : "fixed",
                     "top"       : 0,
@@ -350,32 +360,34 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                 } 
             }
             
-            // Resize
-            _Resize(container, data.overlay, settings, wholePage, true);
-            if (settings.resizeInterval > 0) {
-                data.resizeIntervalId = setInterval(function(){
-                    _Resize(container, data.overlay, settings, wholePage, false);
-                }, settings.resizeInterval);
-            }
-            
             // Fade
             if (!settings.fade) {
                 settings.fade = [0, 0];
             } else if (settings.fade === true) {
-                settings.fade = _defaults._fadeValues;
+                settings.fade = _defaultValues.fade;
             } else if (typeof settings.fade === "string" || typeof settings.fade === "number") {
                 settings.fade = [settings.fade, settings.fade];
             } else if ($.isArray(settings.fade) && settings.fade.length < 2) {
                 settings.fade = [settings.fade[0], settings.fade[0]];
             }
             settings.fade = [parseInt(settings.fade[0], 10), parseInt(settings.fade[1], 10)]
-            data.fadeOut  = settings.fade[1];
+            
+            // Save settings
+            data.settings = settings;
+            
+            // Resize
+            data.overlay
+                .fadeTo(0, 0.01)
+                .appendTo("body");
+            _IntervalResize(container, true);
+            if (settings.resizeInterval > 0) {
+                data.resizeIntervalId = setInterval(function(){
+                    _IntervalResize(container, false);
+                }, settings.resizeInterval);
+            }
             
             // Show LoadingOverlay
-            data.overlay
-                    .hide()
-                    .appendTo("body")
-                    .fadeIn(settings.fade[0]);
+            data.overlay.fadeTo(settings.fade[0], 1);
         }
         data.count++;
     }
@@ -387,11 +399,15 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         data.count--;
         if (force || data.count <= 0) {
             if (data.resizeIntervalId) clearInterval(data.resizeIntervalId);
-            data.overlay.fadeOut(data.fadeOut, function(){
+            data.overlay.fadeOut(data.settings.fade[1], function(){
                 $(this).remove();
             });
             container.removeData("loadingoverlay");
         }
+    }
+    
+    function Resize(container){
+        _IntervalResize($(container), true);
     }
     
     function Text(container, value){
@@ -426,12 +442,14 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     }
     
     
-    function _Resize(container, overlay, settings, wholePage, force){
+    function _IntervalResize(container, force){
+        var data = container.data("loadingoverlay");
+        
         // Overlay
-        if (!wholePage) {
+        if (!data.wholePage) {
             var isFixed = container.css("position") === "fixed";
             var pos     = isFixed ? container[0].getBoundingClientRect() : container.offset();            
-            overlay.css({
+            data.overlay.css({
                 "position"  : isFixed ? "fixed" : "absolute",
                 "top"       : pos.top + parseInt(container.css("border-top-width"), 10),
                 "left"      : pos.left + parseInt(container.css("border-left-width"), 10),
@@ -441,36 +459,36 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         }
         
         // Elements
-        if (settings.size) {
-            var c    = wholePage ? $(window) : container;
-            var size = settings.size.value;
-            if (!settings.size.fixed) {
+        if (data.settings.size) {
+            var c    = data.wholePage ? $(window) : container;
+            var size = data.settings.size.value;
+            if (!data.settings.size.fixed) {
                 size = Math.min(c.innerWidth(), c.innerHeight()) * size / 100;
-                if (settings.maxSize && size > settings.maxSize) size = settings.maxSize;
-                if (settings.minSize && size < settings.minSize) size = settings.minSize;
+                if (data.settings.maxSize && size > data.settings.maxSize) size = data.settings.maxSize;
+                if (data.settings.minSize && size < data.settings.minSize) size = data.settings.minSize;
             }
-            overlay.children(".loadingoverlay_element").each(function(){
+            data.overlay.children(".loadingoverlay_element").each(function(){
                 var $this = $(this);
                 if (force || $this.data("loadingoverlay_autoresize")) {
                     var resizeFactor = $this.data("loadingoverlay_resizefactor");
                     if ($this.hasClass("loadingoverlay_fa") || $this.hasClass("loadingoverlay_text")) {
-                        $this.css("font-size", (size * resizeFactor) + settings.size.units);
+                        $this.css("font-size", (size * resizeFactor) + data.settings.size.units);
                     } else if ($this.hasClass("loadingoverlay_progress")) {
                         var progress = container.data("loadingoverlay").progress;
-                        progress.bar.css("height", (size * resizeFactor) + settings.size.units);
-                        if (!container.data("loadingoverlay").progress.force) {
+                        progress.bar.css("height", (size * resizeFactor) + data.settings.size.units);
+                        if (!progress.force) {
                             progress.bar
                                 .css("top", $this.position().top)
-                                .css("top", "-=" + (size * resizeFactor * 0.5) + settings.size.units);
+                                .css("top", "-=" + (size * resizeFactor * 0.5) + data.settings.size.units);
                         } else if (progress.force === "bottom") {
                             $this
                                 .css("bottom", progress.margin ? progress.margin.value + (progress.margin.fixed ? progress.margin.units : "%") : 0)
-                                .css("bottom", "+=" + (size * resizeFactor) + settings.size.units);
+                                .css("bottom", "+=" + (size * resizeFactor) + data.settings.size.units);
                         }
                     } else {
                         $this.css({
-                            "width"  : (size * resizeFactor) + settings.size.units,
-                            "height" : (size * resizeFactor) + settings.size.units
+                            "width"  : (size * resizeFactor) + data.settings.size.units,
+                            "height" : (size * resizeFactor) + data.settings.size.units
                         });
                     }
                 }
@@ -528,11 +546,11 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     }
     
     function _ValidateAnimation(value){
-        return _whitelist.animations.indexOf(value) > -1;
+        return _whitelists.animations.indexOf(value) > -1;
     }
     
     function _ValidateProgressPosition(value){
-        return _whitelist.progressPosition.indexOf(value) > -1;
+        return _whitelists.progressPosition.indexOf(value) > -1;
     }
     
     
