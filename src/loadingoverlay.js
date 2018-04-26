@@ -218,7 +218,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         settings.resizeInterval = parseInt(settings.resizeInterval, 10) || 0;
         
         var overlay = container.data("loadingoverlay");
-        if (typeof data === "undefined") {
+        var data    = _GetData(overlay);
+        if (data === false) {
             // Init data
             var data = $.extend({}, _dataTemplate);
             data.container = container;
