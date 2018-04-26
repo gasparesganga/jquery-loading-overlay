@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v2.1.2 - 2018-04-26
+### Fixed
+- Bug introduced in v2.1.1 causing multiple LoadingOverlays to be shown on a single element
+
+
+
 ## v2.1.1 - 2018-04-22
 ### Fixed
 - Gracefully hides when target element is arbitrary removed from DOM
