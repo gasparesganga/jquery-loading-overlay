@@ -12,7 +12,7 @@
     "bugs": {
         "url": "https://github.com/gasparesganga/jquery-loading-overlay/issues"
     },
-    "main": "dest/loadingoverlay.min.js",
+    "main": "dist/loadingoverlay.min.js",
     "keywords": [
         "ecosystem:jquery",
         "jquery-plugin",
