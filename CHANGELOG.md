@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v2.1.3 - 2018-05-04
+### Fixed
+- package.json `main` path fix
+
+
+
 ## v2.1.2 - 2018-04-26
 ### Fixed
 - Bug introduced in v2.1.1 causing multiple LoadingOverlays to be shown on a single element
