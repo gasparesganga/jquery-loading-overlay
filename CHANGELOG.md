@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v2.1.4 - 2018-06-07
+### Fixed
+- Replaced the `.load()` method with a custom `ajax()` request to load external SVG images in order to prevent conflicts with `ajaxStart()` and `ajaxSend()` event handlers
+
+
+
 ## v2.1.3 - 2018-05-04
 ### Fixed
 - package.json `main` path fix

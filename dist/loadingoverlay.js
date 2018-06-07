@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 2.1.3
+    Version         : 2.1.4
     License         : MIT
     Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
 ***************************************************************************************************/
@@ -275,7 +275,13 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
                     if (!settings.imageClass && settings.imageColor) element.find("*").css(settings.imageColor);
                 } else if (settings.image.slice(-4).toLowerCase() === ".svg" || settings.image.slice(0, 14).toLowerCase() === "data:image/svg") {
                     // SVG file or base64-encoded SVG
-                    element.load(settings.image, function(){
+                    $.ajax({
+                        url         : settings.image,
+                        type        : "GET",
+                        dataType    : "html",
+                        global      : false
+                    }).done(function(data){
+                        element.html(data);
                         element.children().css(_css.element_svg);
                         if (!settings.imageClass && settings.imageColor) element.find("*").css(settings.imageColor);
                     });
