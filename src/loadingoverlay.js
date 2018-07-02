@@ -466,6 +466,13 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         var data    = _GetData(overlay);
         if (data === false) return;
         
+		if(container.is(':hidden')){
+			overlay.hide();
+			return;
+		} else {
+			overlay.show();
+		}
+		
         // Overlay
         if (!data.wholePage) {
             var isFixed = container.css("position") === "fixed";
