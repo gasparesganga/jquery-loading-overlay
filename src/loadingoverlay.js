@@ -525,8 +525,12 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         if (typeof data === "undefined") {
             // Clean DOM
             $(".loadingoverlay").each(function(){
-                var $this = $(this);
-                if (!document.body.contains($this.data("loadingoverlay_data").container[0])) $this.remove();
+                var $this   = $(this);
+                var data    = $this.data("loadingoverlay_data");
+                if (!document.body.contains(data.container[0])) {
+                    if (data.resizeIntervalId) clearInterval(data.resizeIntervalId);
+                    $this.remove();
+                }
             });
             return false;
         } else {
