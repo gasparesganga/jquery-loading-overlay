@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 2.1.4
+    Version         : 2.1.5
     License         : MIT
     Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
 ***************************************************************************************************/
@@ -217,8 +217,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         settings.minSize        = parseInt(settings.minSize, 10) || 0;
         settings.resizeInterval = parseInt(settings.resizeInterval, 10) || 0;
         
-        var overlay = container.data("loadingoverlay");
-        var data    = _GetData(overlay);
+        var overlay = _GetOverlay(container);
+        var data    = _GetData(container);
         if (data === false) {
             // Init data
             data = $.extend({}, _dataTemplate);
@@ -407,8 +407,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     
     function Hide(container, force){
         container   = $(container);
-        var overlay = container.data("loadingoverlay");
-        var data    = _GetData(overlay);
+        var overlay = _GetOverlay(container);
+        var data    = _GetData(container);
         if (data === false) return;
         
         data.count--;
@@ -427,8 +427,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     
     function Text(container, value){
         container   = $(container);
-        var overlay = container.data("loadingoverlay");
-        var data    = _GetData(overlay);
+        var data    = _GetData(container);
         if (data === false || !data.text) return;
         
         if (value === false) {
@@ -442,8 +441,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     
     function Progress(container, value){
         container   = $(container);
-        var overlay = container.data("loadingoverlay");
-        var data    = _GetData(overlay);
+        var data    = _GetData(container);
         if (data === false || !data.progress) return;
         
         if (value === false) {
@@ -462,8 +460,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     
     
     function _IntervalResize(container, force){
-        var overlay = container.data("loadingoverlay");
-        var data    = _GetData(overlay);
+        var overlay = _GetOverlay(container);
+        var data    = _GetData(container);
         if (data === false) return;
         
         // Overlay
@@ -517,16 +515,26 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     }
     
     
-    function _GetData(overlay){
-        var data = (typeof overlay === "undefined") ? undefined : overlay.data("loadingoverlay_data");
+    function _GetOverlay(container){
+        return container.data("loadingoverlay");
+    }
+    
+    function _GetData(container){
+        var overlay = _GetOverlay(container);
+        var data    = (typeof overlay === "undefined") ? undefined : overlay.data("loadingoverlay_data");
         if (typeof data === "undefined") {
             // Clean DOM
             $(".loadingoverlay").each(function(){
-                var $this = $(this);
-                if (!document.body.contains($this.data("loadingoverlay_data").container[0])) $this.remove();
+                var $this   = $(this);
+                var data    = $this.data("loadingoverlay_data");
+                if (!document.body.contains(data.container[0])) {
+                    if (data.resizeIntervalId) clearInterval(data.resizeIntervalId);
+                    $this.remove();
+                }
             });
             return false;
         } else {
+            overlay.toggle(container.is(":visible"));
             return data;
         }
     }

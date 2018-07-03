@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v2.1.5 - 2018-07-03
+### Fixed
+- Toggle LoadingOverlay visibility according to target element
+- Clear orphaned intervals when target element is arbitrary removed from DOM
+
+
+
 ## v2.1.4 - 2018-06-07
 ### Fixed
 - Replaced the `.load()` method with a custom `ajax()` request to load external SVG images in order to prevent conflicts with `ajaxStart()` and `ajaxSend()` event handlers
