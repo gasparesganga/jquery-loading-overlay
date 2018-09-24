@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 2.1.5
+    Version         : 2.1.6dev
     License         : MIT
     Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
 ***************************************************************************************************/
@@ -413,11 +413,13 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
         
         data.count--;
         if (force || data.count <= 0) {
-            if (data.resizeIntervalId) clearInterval(data.resizeIntervalId);
-            overlay.fadeOut(data.settings.fade[1], function(){
+            overlay.animate({
+                "opacity"   : 0
+            }, data.settings.fade[1], function(){
+                if (data.resizeIntervalId) clearInterval(data.resizeIntervalId);
                 $(this).remove();
+                container.removeData("loadingoverlay");
             });
-            container.removeData("loadingoverlay");
         }
     }
     
