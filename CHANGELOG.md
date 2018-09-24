@@ -1,8 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/) 
+and this project adheres to [Semantic Versioning](https://semver.org/).
+
+
+## v2.1.6 - 2018-09-24
+### Fixed
+- Corner case when LoadingOverlay was being hidden with a long fade out time after the target element was resized and before `resizeInterval` was triggered
+
 
 
 ## v2.1.5 - 2018-07-03
