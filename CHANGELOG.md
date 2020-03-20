@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
 
+## v2.1.7 - 2020-03-20
+### Fixed
+- Bug affecting settings and in particular size when applied to multiple target elements using a single jQuery selector
+
+
+
 ## v2.1.6 - 2018-09-24
 ### Fixed
 - Corner case when LoadingOverlay was being hidden with a long fade out time after the target element was resized and before `resizeInterval` was triggered

@@ -1,7 +1,7 @@
 /***************************************************************************************************
 LoadingOverlay - A flexible loading overlay jQuery plugin
     Author          : Gaspare Sganga
-    Version         : 2.1.6
+    Version         : 2.1.7
     License         : MIT
     Documentation   : https://gasparesganga.com/labs/jquery-loading-overlay/
 ***************************************************************************************************/
@@ -157,8 +157,7 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     $.LoadingOverlay = function(action, options){
         switch (action.toLowerCase()) {
             case "show":
-                var settings = $.extend(true, {}, _defaults, options);
-                Show("body", settings);
+                Show("body", $.extend(true, {}, _defaults, options));
                 break;
                 
             case "hide":
@@ -182,9 +181,8 @@ LoadingOverlay - A flexible loading overlay jQuery plugin
     $.fn.LoadingOverlay = function(action, options){
         switch (action.toLowerCase()) {
             case "show":
-                var settings = $.extend(true, {}, _defaults, options);
                 return this.each(function(){
-                    Show(this, settings);
+                    Show(this, $.extend(true, {}, _defaults, options));
                 });
                 
             case "hide":

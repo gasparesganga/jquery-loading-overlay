@@ -1,6 +1,6 @@
 {
     "name": "gasparesganga-jquery-loading-overlay",
-    "version": "2.1.6",
+    "version": "2.1.7",
     "description": "A flexible loading overlay jQuery plugin",
     "homepage": "https://gasparesganga.com/labs/jquery-loading-overlay/",
     "author": "Gaspare Sganga <contact@gasparesganga.com> (https://gasparesganga.com)",
@@ -26,12 +26,12 @@
     },
     "devDependencies": {
         "del": "^3.0.0",
-        "gulp": "^4.0.0",
-        "gulp-header": "^2.0.5",
+        "gulp": "^4.0.2",
+        "gulp-header": "^2.0.9",
         "gulp-rename": "^1.4.0",
         "gulp-replace": "^0.6.1",
-        "gulp-sourcemaps": "^2.6.4",
-        "gulp-uglify": "^3.0.1",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-uglify": "^3.0.2",
         "inquirer": "^5.2.0"
     }
 }
