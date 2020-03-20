@@ -15,7 +15,7 @@
         "overlay"
     ],
     "main": [
-        "dist/loadingoverlay.min.js"
+        "dist/loadingoverlay.js"
     ],
     "repository": {
         "type": "git",
